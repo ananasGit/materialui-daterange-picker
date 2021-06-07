@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   Paper,
   Grid,
-  Typography,
   makeStyles,
 } from '@material-ui/core';
 import {
@@ -26,23 +25,24 @@ import Day from './Day';
 
 // eslint-disable-next-line no-unused-vars
 import { NavigationAction, DateRange } from '../types';
+import { theme } from '../theme';
 
-const WEEK_DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+const WEEK_DAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: 290,
+    width: 320,
   },
   weekDaysContainer: {
-    marginTop: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
+    marginTop: 12,
+    paddingLeft: 28,
+    paddingRight: 28,
   },
   daysContainer: {
-    paddingLeft: 15,
-    paddingRight: 15,
-    marginTop: 15,
-    marginBottom: 20,
+    paddingLeft: 12,
+    paddingRight: 12,
+    marginTop: 12,
+    marginBottom: 12,
   },
 }));
 
@@ -101,9 +101,14 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
           className={classes.weekDaysContainer}
         >
           {WEEK_DAYS.map((day) => (
-            <Typography color="textSecondary" key={day} variant="caption">
+            <div key={day} style={{
+              fontSize: theme.font.size.small, 
+              fontWeight: theme.font.weight.semiBold, 
+              fontFamily: theme.font.family.sans,
+              color: theme.color.dune
+            }} >
               {day}
-            </Typography>
+            </div>
           ))}
         </Grid>
 

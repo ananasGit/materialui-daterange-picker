@@ -34,9 +34,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   divider: {
     borderLeft: `1px solid ${theme.palette.action.hover}`,
+    marginBottom: 12
   },
-  horizontalDivider: {
-    borderTop: `1px solid ${theme.palette.action.hover}`,
+  footer: {
+    padding: "12px"
   }
 }));
 
@@ -88,6 +89,7 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
     <Paper elevation={5} square>
       <Grid container direction="row" wrap="nowrap">
         <Grid>
+
           <Grid container className={classes.header} alignItems="center">
             <Grid item className={classes.headerItem}>
               <Typography variant="subtitle1">
@@ -103,7 +105,7 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
               </Typography>
             </Grid>
           </Grid>
-          <Divider />
+
           <Grid container direction="row" justify="center" wrap="nowrap">
             <Month
               {...commonProps}
@@ -112,7 +114,6 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
               navState={[true, canNavigateCloser]}
               marker={MARKERS.FIRST_MONTH}
             />
-            <div className={classes.divider} />
             <Month
               {...commonProps}
               value={secondMonth}
@@ -123,7 +124,7 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
           </Grid>
         </Grid>
         <div className={classes.divider} />
-        <Grid>
+        <Grid container alignItems="center">
           <DefinedRanges
             selectedRange={dateRange}
             ranges={ranges}
@@ -131,8 +132,7 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
           />
         </Grid>
       </Grid>
-      <div className={classes.horizontalDivider}></div>
-      <Grid container direction="row" justify="end" wrap="nowrap">
+      <Grid container direction="row" justify="flex-end" wrap="nowrap" className={classes.footer}>
         {footer}
       </Grid>
     </Paper>

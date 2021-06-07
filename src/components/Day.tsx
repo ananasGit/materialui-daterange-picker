@@ -5,43 +5,41 @@ import {
   IconButton,
   Typography,
   makeStyles,
-  // eslint-disable-next-line no-unused-vars
-  Theme,
 } from '@material-ui/core';
 import { combine } from '../utils';
+import {theme} from '../theme';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  leftBorderRadius: {
-    borderRadius: '50% 0 0 50%',
-  },
-  rightBorderRadius: {
-    borderRadius: '0 50% 50% 0',
-  },
+
+const useStyles = makeStyles(() => ({
   buttonContainer: {
     display: 'flex',
+    border: `1px solid ${theme.color.alto}`
   },
   button: {
-    height: 36,
-    width: 36,
+    height: 40,
+    width: 40,
     padding: 0,
+    borderRadius: 0,
   },
   buttonText: {
     lineHeight: 1.6,
   },
   outlined: {
-    border: `1px solid ${theme.palette.primary.dark}`,
+    border: `1px solid ${theme.color.burningOrange}`,
   },
   filled: {
     '&:hover': {
-      backgroundColor: theme.palette.primary.dark,
+      backgroundColor: theme.color.burningOrange,
+      border: `1px solid ${theme.color.burningOrange}`,
     },
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.color.burningOrange,
+    border: `1px solid ${theme.color.burningOrange}`,
   },
   highlighted: {
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor: "#FFB999",
   },
   contrast: {
-    color: theme.palette.primary.contrastText,
+    color: theme.color.white,
   },
 }));
 
@@ -58,8 +56,6 @@ interface DayProps {
 }
 
 const Day: React.FunctionComponent<DayProps> = ({
-  startOfRange,
-  endOfRange,
   disabled,
   highlighted,
   outlined,
@@ -74,8 +70,6 @@ const Day: React.FunctionComponent<DayProps> = ({
     <div
       className={combine(
         classes.buttonContainer,
-        startOfRange && classes.leftBorderRadius,
-        endOfRange && classes.rightBorderRadius,
         !disabled && highlighted && classes.highlighted,
       )}
     >
