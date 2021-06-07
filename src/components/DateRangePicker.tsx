@@ -29,12 +29,12 @@ export const MARKERS: { [key: string]: Marker } = {
   SECOND_MONTH: Symbol('secondMonth'),
 };
 
-interface DateRangePickerProps {
-  open: boolean;
+export interface DateRangePickerProps {
   initialDateRange?: DateRange;
   definedRanges?: DefinedRange[];
   minDate?: Date | string;
   maxDate?: Date | string;
+  footer?: React.ReactNode;
   onChange: (dateRange: DateRange) => void;
 }
 
@@ -44,12 +44,12 @@ const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (
   const today = new Date();
 
   const {
-    open,
     onChange,
     initialDateRange,
     minDate,
     maxDate,
     definedRanges = defaultRanges,
+    footer,
   } = props;
 
   const minDateValid = parseOptionalDate(minDate, addYears(today, -10));
@@ -151,21 +151,20 @@ const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (
     onMonthNavigate,
   };
 
-  return open ? (
-    <Menu
-      dateRange={dateRange}
-      minDate={minDateValid}
-      maxDate={maxDateValid}
-      ranges={definedRanges}
-      firstMonth={firstMonth}
-      secondMonth={secondMonth}
-      setFirstMonth={setFirstMonthValidated}
-      setSecondMonth={setSecondMonthValidated}
-      setDateRange={setDateRangeValidated}
-      helpers={helpers}
-      handlers={handlers}
-    />
-  ) : null;
+  return <Menu
+        dateRange={dateRange}
+        minDate={minDateValid}
+        maxDate={maxDateValid}
+        ranges={definedRanges}
+        firstMonth={firstMonth}
+        secondMonth={secondMonth}
+        setFirstMonth={setFirstMonthValidated}
+        setSecondMonth={setSecondMonthValidated}
+        setDateRange={setDateRangeValidated}
+        helpers={helpers}
+        handlers={handlers}
+        footer={footer}
+      />;
 };
 
 export default DateRangePicker;

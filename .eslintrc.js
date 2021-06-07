@@ -1,45 +1,41 @@
 module.exports = {
-  env: {
-    browser: true,
-    es6: true,
-    node: true,
-  },
-  settings: {
-    "import/resolver": {
-      node: {
-        paths: ["src"],
-        extensions: [
-          ".js",
-          ".ts",
-          ".jsx",
-          ".tsx",
-        ],
-      },
-    },
-  },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-  ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
-  parser: '@typescript-eslint/parser',
+  root: true,
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 2018,
-    sourceType: 'module',
+    tsconfigRootDir: __dirname,
+    project: ["./tsconfig.json"],
   },
-  plugins: [
-    'react',
-    '@typescript-eslint',
+  plugins: ["@typescript-eslint", "jest", "react", "simple-import-sort"],
+  extends: [
+    "eslint:recommended",
+
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+
+    "plugin:eslint-comments/recommended",
+
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+
+    "plugin:jest/recommended",
+    "plugin:jest/style",
+
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+
+    "prettier",
   ],
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
   rules: {
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
-    "react/jsx-props-no-spreading": 0,
-    "import/extensions": 0,
+    // this rule doesn't play well with nested styled-components interpolations
+    "@typescript-eslint/restrict-template-expressions": 0,
+    // simple-import-sort rules aren't enabled by default
+    "simple-import-sort/imports": 2,
+    "simple-import-sort/exports": 2,
   },
 };

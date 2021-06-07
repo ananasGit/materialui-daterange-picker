@@ -34,8 +34,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   divider: {
     borderLeft: `1px solid ${theme.palette.action.hover}`,
-    marginBottom: 20,
   },
+  horizontalDivider: {
+    borderTop: `1px solid ${theme.palette.action.hover}`,
+  }
 }));
 
 interface MenuProps {
@@ -56,6 +58,7 @@ interface MenuProps {
     onDayHover: (day: Date) => void;
     onMonthNavigate: (marker: symbol, action: NavigationAction) => void;
   };
+  footer?: React.ReactNode;
 }
 
 const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
@@ -73,6 +76,7 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
     setDateRange,
     helpers,
     handlers,
+    footer
   } = props;
 
   const { startDate, endDate } = dateRange;
@@ -126,6 +130,10 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
             setRange={setDateRange}
           />
         </Grid>
+      </Grid>
+      <div className={classes.horizontalDivider}></div>
+      <Grid container direction="row" justify="end" wrap="nowrap">
+        {footer}
       </Grid>
     </Paper>
   );
