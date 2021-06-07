@@ -4,19 +4,13 @@
 	"description": "A react date range picker implementation using @material-ui.",
 	"author": "HTEC",
 	"license": "MIT",
-	"main": "build/main/index.js",
-	"typings": "build/main/index.d.ts",
-	"module": "build/module/index.js",
-	"bin": {
-		"materialui-daterange-picker": "build/main/index.js"
-	},
+	"main": "build/index.js",
 	"engines": {
 		"node": ">=10"
 	},
 	"scripts": {
 		"lint": "./node_modules/.bin/eslint ./src --ext .js,.jsx,.ts,.tsx",
-		"build": "tsc -p tsconfig.json",
-		"prepublish": "npm run build"
+		"build": "tsc -p tsconfig.json"
 	},
 	"peerDependencies": {
 		"@material-ui/core": "^4.9.4",
