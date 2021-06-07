@@ -10,9 +10,10 @@
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint ./src --ext .js,.jsx,.ts,.tsx",
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "prebuild": "rimraf build tsconfig.tsbuildinfo"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.9.4",
@@ -63,6 +64,7 @@
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-scripts": "^3.0.1",
+    "rimraf": "^2.6.3",
     "typescript": "^3.7.5"
   },
   "dependencies": {

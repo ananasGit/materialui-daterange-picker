@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Meta, Story } from "@storybook/react";
 import { DateRangePickerComponent } from "..";
 import { DateRangePickerProps } from "../components/DateRangePicker";
@@ -8,7 +9,7 @@ export default {
   component: DateRangePickerComponent,
 } as Meta;
 
-const Template: Story<DateRangePickerProps> = (args) => {
+const Template: Story<DateRangePickerProps> = (args: DateRangePickerProps) => {
   return (
     <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
       <DateRangePickerComponent {...args} />
@@ -16,7 +17,7 @@ const Template: Story<DateRangePickerProps> = (args) => {
   );
 };
 
-const Template2: Story<DateRangePickerProps> = (args) => {
+const Template2: Story<DateRangePickerProps> = (args: DateRangePickerProps) => {
   return (
     <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
       <DateRangePickerComponent {...args} footer={(
