@@ -17,10 +17,7 @@ Check out the project running [here](https://codesandbox.io/s/materialui-dateran
 ## Usage
 
 ```bash
-npm install materialui-daterange-picker --save
-
-# or with yarn
-yarn add materialui-daterange-picker
+npm install @ananasgit/materialui-daterange-picker --save
 ```
 
 ## Basic example
