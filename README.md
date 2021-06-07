@@ -23,7 +23,7 @@ npm install @ananasgit/materialui-daterange-picker --save
 ## Basic example
 ```tsx
 import React from "react";
-import { DateRangePicker, DateRange } from "materialui-daterange-picker";
+import { DateRangePicker, DateRange } from "@ananasgit/materialui-daterange-picker";
 
 type Props = {}
 
