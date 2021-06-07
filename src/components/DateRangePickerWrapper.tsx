@@ -20,8 +20,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 export interface DateRangePickerWrapperProps {
-  open: boolean;
-  toggle: () => void;
   initialDateRange?: DateRange;
   definedRanges?: DefinedRange[];
   minDate?: Date | string;
