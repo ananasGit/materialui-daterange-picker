@@ -23,6 +23,7 @@ export interface DateRangePickerWrapperProps {
   maxDate?: Date | string;
   onChange: (dateRange: DateRange) => void;
   wrapperClassName?: string;
+  footer?: React.ReactNode;
 }
 
 const DateRangePickerWrapper: React.FunctionComponent<DateRangePickerWrapperProps> = (
