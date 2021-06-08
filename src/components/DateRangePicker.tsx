@@ -1,4 +1,4 @@
-import { addMonths, addYears, isAfter, isBefore, isSameDay, isSameMonth, isWithinRange, max, min } from "date-fns";
+import { addMonths, addYears, isAfter, isBefore, isSameDay, isSameMonth, isWithinRange, max, min, setDate } from "date-fns";
 import * as React from "react";
 
 import { defaultRanges } from "../defaults";
@@ -15,7 +15,7 @@ export const MARKERS: { [key: string]: Marker } = {
 };
 
 export interface DateRangePickerProps {
-  initialDateRange?: DateRange;
+  value?: DateRange;
   definedRanges?: DefinedRange[];
   minDate?: Date | string;
   maxDate?: Date | string;
@@ -26,18 +26,26 @@ export interface DateRangePickerProps {
 const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (props: DateRangePickerProps) => {
   const today = new Date();
 
-  const { onChange, initialDateRange, minDate, maxDate, definedRanges = defaultRanges, footer } = props;
+  const { onChange, value, minDate, maxDate, definedRanges = defaultRanges, footer } = props;
 
   const minDateValid = parseOptionalDate(minDate, addYears(today, -10));
   const maxDateValid = parseOptionalDate(maxDate, addYears(today, 10));
-  const [intialFirstMonth, initialSecondMonth] = getValidatedMonths(initialDateRange || {}, minDateValid, maxDateValid);
+  const [intialFirstMonth, initialSecondMonth] = getValidatedMonths(value || {}, minDateValid, maxDateValid);
 
-  const [dateRange, setDateRange] = React.useState<DateRange>({ ...initialDateRange });
+  const [dateRange, setDateRange] = React.useState<DateRange>({ ...value });
   const [hoverDay, setHoverDay] = React.useState<Date>();
   const [firstMonth, setFirstMonth] = React.useState<Date>(intialFirstMonth || today);
   const [secondMonth, setSecondMonth] = React.useState<Date>(initialSecondMonth || addMonths(firstMonth, 1));
 
   const { startDate, endDate } = dateRange;
+
+  React.useEffect(() => {
+    setDateRange({ ...value });
+
+    const [intialFirstMonth, initialSecondMonth] = getValidatedMonths(value || {}, minDateValid, maxDateValid);
+    setFirstMonth(intialFirstMonth || today);
+    setSecondMonth(initialSecondMonth || addMonths(firstMonth, 1));
+  }, [value])
 
   // handlers
   const setFirstMonthValidated = (date: Date) => {

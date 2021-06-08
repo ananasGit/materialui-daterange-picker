@@ -5,6 +5,7 @@ import React, { useCallback, useRef, useState } from "react";
 
 import { DateRangePickerComponent } from "..";
 import { DateRangePickerProps } from "../components/DateRangePicker";
+import { DateRange } from "../types";
 
 export default {
   title: "DateRangePicker",
@@ -20,10 +21,24 @@ const Template: Story<DateRangePickerProps> = (args: DateRangePickerProps) => {
 };
 
 const Template2: Story<DateRangePickerProps> = (args: DateRangePickerProps) => {
+  const [value, setValue] = useState<DateRange>();
+
+  const randomDate = (start: Date, end: Date): Date => {
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+  }
+
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div onClick={() => {
+        setValue({
+          startDate: randomDate(new Date('1-1-2021'), new Date('6-31-2021')),
+          endDate: randomDate(new Date('7-1-2021'), new Date('12-31-2021'))
+        })
+      }}>Change date</div>
       <DateRangePickerComponent
         {...args}
+        value={value}
+        onChange={setValue}
         footer={
           <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", width: "100%" }}>text</div>
         }

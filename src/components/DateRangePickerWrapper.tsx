@@ -17,12 +17,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 export interface DateRangePickerWrapperProps {
-  initialDateRange?: DateRange;
+  value?: DateRange;
   definedRanges?: DefinedRange[];
   minDate?: Date | string;
   maxDate?: Date | string;
   onChange: (dateRange: DateRange) => void;
-  closeOnClickOutside?: boolean;
   wrapperClassName?: string;
 }
 
