@@ -1,6 +1,6 @@
 {
   "name": "@ananasgit/materialui-daterange-picker",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "A react date range picker implementation using @material-ui.",
   "author": "HTEC",
   "license": "MIT",
