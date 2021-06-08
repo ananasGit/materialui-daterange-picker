@@ -1,22 +1,10 @@
-/* eslint-disable radix */
+import { Grid, IconButton, makeStyles, MenuItem, Select } from "@material-ui/core";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ChevronRight from "@material-ui/icons/ChevronRight";
+import { getMonth, getYear, setMonth, setYear } from "date-fns";
+import React from "react";
 
-import {
-  Grid,
-  makeStyles,
-  IconButton,
-  Select,
-  MenuItem,
-} from '@material-ui/core';
-import React from 'react';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import {
-  setMonth,
-  getMonth,
-  setYear,
-  getYear,
-} from 'date-fns';
-import { theme } from '../theme';
+import { theme } from "../theme";
 
 const useStyles = makeStyles(() => ({
   iconContainer: {
@@ -24,13 +12,13 @@ const useStyles = makeStyles(() => ({
   },
   icon: {
     padding: 10,
-    '&:hover': {
-      background: 'none',
+    "&:hover": {
+      background: "none",
     },
   },
   header: {
-    fontFamily: theme.font.family.sans
-  }
+    fontFamily: theme.font.family.sans,
+  },
 }));
 
 interface HeaderProps {
@@ -42,20 +30,7 @@ interface HeaderProps {
   onClickPrevious: () => void;
 }
 
-const MONTHS = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'June',
-  'July',
-  'Aug',
-  'Sept',
-  'Oct',
-  'Nov',
-  'Dec',
-];
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
 const generateYears = (relativeTo: Date, count: number) => {
   const half = Math.floor(count / 2);
@@ -85,12 +60,8 @@ const Header: React.FunctionComponent<HeaderProps> = ({
   return (
     <Grid container justify="space-between" alignItems="center">
       <Grid item className={classes.iconContainer}>
-        <IconButton
-          className={classes.icon}
-          disabled={prevDisabled}
-          onClick={onClickPrevious}
-        >
-          <ChevronLeft color={prevDisabled ? 'disabled' : 'action'} />
+        <IconButton className={classes.icon} disabled={prevDisabled} onClick={onClickPrevious}>
+          <ChevronLeft color={prevDisabled ? "disabled" : "action"} />
         </IconButton>
       </Grid>
       <Grid item>
@@ -98,17 +69,17 @@ const Header: React.FunctionComponent<HeaderProps> = ({
           value={getMonth(date)}
           onChange={handleMonthChange}
           MenuProps={{
-          anchorOrigin: {
-            vertical: "bottom",
-            horizontal: "left"
-          },
-          transformOrigin: {
-            vertical: "top",
-            horizontal: "left"
-          },
-          getContentAnchorEl: null
-        }}
-        className={classes.header}
+            anchorOrigin: {
+              vertical: "bottom",
+              horizontal: "left",
+            },
+            transformOrigin: {
+              vertical: "top",
+              horizontal: "left",
+            },
+            getContentAnchorEl: null,
+          }}
+          className={classes.header}
         >
           {MONTHS.map((month, idx) => (
             <MenuItem key={month} value={idx} className={classes.header}>
@@ -123,17 +94,17 @@ const Header: React.FunctionComponent<HeaderProps> = ({
           value={getYear(date)}
           onChange={handleYearChange}
           MenuProps={{
-          anchorOrigin: {
-            vertical: "bottom",
-            horizontal: "left"
-          },
-          transformOrigin: {
-            vertical: "top",
-            horizontal: "left"
-          },
-          getContentAnchorEl: null
-        }}
-        className={classes.header}
+            anchorOrigin: {
+              vertical: "bottom",
+              horizontal: "left",
+            },
+            transformOrigin: {
+              vertical: "top",
+              horizontal: "left",
+            },
+            getContentAnchorEl: null,
+          }}
+          className={classes.header}
         >
           {generateYears(date, 30).map((year) => (
             <MenuItem key={year} value={year} className={classes.header}>
@@ -146,7 +117,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({
       </Grid>
       <Grid item className={classes.iconContainer}>
         <IconButton className={classes.icon} disabled={nextDisabled} onClick={onClickNext}>
-          <ChevronRight color={nextDisabled ? 'disabled' : 'action'} />
+          <ChevronRight color={nextDisabled ? "disabled" : "action"} />
         </IconButton>
       </Grid>
     </Grid>

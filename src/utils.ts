@@ -1,18 +1,18 @@
 import {
-  startOfWeek,
-  startOfMonth,
-  endOfWeek,
-  endOfMonth,
-  isBefore,
   addDays,
-  isSameDay,
-  isWithinRange,
-  isSameMonth,
   addMonths,
-  parse,
+  endOfMonth,
+  endOfWeek,
+  isBefore,
+  isSameDay,
+  isSameMonth,
   isValid,
-  min,
+  isWithinRange,
   max,
+  min,
+  parse,
+  startOfMonth,
+  startOfWeek,
 } from "date-fns";
 
 // eslint-disable-next-line no-unused-vars
@@ -38,14 +38,14 @@ export const getDaysInMonth = (date: Date) => {
 };
 
 export const isStartOfRange = ({ startDate }: DateRange, day: Date) =>
-  (startDate && isSameDay(day, startDate)) as boolean;
+  (startDate && isSameDay(day, startDate));
 
-export const isEndOfRange = ({ endDate }: DateRange, day: Date) => (endDate && isSameDay(day, endDate)) as boolean;
+export const isEndOfRange = ({ endDate }: DateRange, day: Date) => (endDate && isSameDay(day, endDate));
 
 export const inDateRange = ({ startDate, endDate }: DateRange, day: Date) =>
   (startDate &&
     endDate &&
-    (isWithinRange(day, startDate, endDate) || isSameDay(day, startDate) || isSameDay(day, endDate))) as boolean;
+    (isWithinRange(day, startDate, endDate) || isSameDay(day, startDate) || isSameDay(day, endDate)));
 
 export const isRangeSameDay = ({ startDate, endDate }: DateRange) => {
   if (startDate && endDate) {

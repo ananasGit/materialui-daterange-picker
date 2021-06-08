@@ -10,7 +10,7 @@ export enum NavigationAction {
   Previous = -1,
 
   // eslint-disable-next-line no-unused-vars
-  Next = 1
+  Next = 1,
 }
 
 export type DefinedRange = {

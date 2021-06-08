@@ -1,48 +1,49 @@
-import React from 'react';
 import {
-  Paper,
   Grid,
-  Typography,
   makeStyles,
+  Paper,
   // eslint-disable-next-line no-unused-vars
   Theme,
-} from '@material-ui/core';
-import { format, differenceInCalendarMonths } from 'date-fns';
-import ArrowRightAlt from '@material-ui/icons/ArrowRightAlt';
-import Month from './Month';
-import DefinedRanges from './DefinedRanges';
+  Typography,
+} from "@material-ui/core";
+import ArrowRightAlt from "@material-ui/icons/ArrowRightAlt";
+import { differenceInCalendarMonths,format } from "date-fns";
+import React from "react";
+
+import { theme as customTheme } from "../theme";
 import {
   // eslint-disable-next-line no-unused-vars
   DateRange,
   // eslint-disable-next-line no-unused-vars
   DefinedRange,
   // eslint-disable-next-line no-unused-vars
-  Setter,
-  // eslint-disable-next-line no-unused-vars
   NavigationAction,
-} from '../types';
-import { MARKERS } from './DateRangePicker';
-import { theme as customTheme } from '../theme';
-import { combine } from '../utils';
+  // eslint-disable-next-line no-unused-vars
+  Setter,
+} from "../types";
+import { combine } from "../utils";
+import { MARKERS } from "./DateRangePicker";
+import DefinedRanges from "./DefinedRanges";
+import Month from "./Month";
 
 const useStyles = makeStyles((theme: Theme) => ({
   header: {
-    padding: '20px 70px',
+    padding: "20px 70px",
   },
   headerItem: {
     flex: 1,
-    textAlign: 'center',
+    textAlign: "center",
   },
   divider: {
     borderLeft: `1px solid ${theme.palette.action.hover}`,
-    marginBottom: 12
+    marginBottom: 12,
   },
   footer: {
-    padding: "12px"
+    padding: "12px",
   },
   font: {
-    fontFamily: customTheme.font.family.sans
-  }
+    fontFamily: customTheme.font.family.sans,
+  },
 }));
 
 interface MenuProps {
@@ -81,32 +82,33 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
     setDateRange,
     helpers,
     handlers,
-    footer
+    footer,
   } = props;
 
   const { startDate, endDate } = dateRange;
   const canNavigateCloser = differenceInCalendarMonths(secondMonth, firstMonth) >= 2;
   const commonProps = {
-    dateRange, minDate, maxDate, helpers, handlers,
+    dateRange,
+    minDate,
+    maxDate,
+    helpers,
+    handlers,
   };
   return (
     <Paper elevation={5} square>
       <Grid container direction="row" wrap="nowrap">
         <Grid>
-
           <Grid container className={combine(classes.header, classes.font)} alignItems="center">
             <Grid item className={classes.headerItem}>
               <Typography variant="subtitle1">
-                {startDate ? format(startDate, 'MMMM DD, YYYY') : 'Start Date'}
+                {startDate ? format(startDate, "MMMM DD, YYYY") : "Start Date"}
               </Typography>
             </Grid>
             <Grid item className={classes.headerItem}>
               <ArrowRightAlt color="action" />
             </Grid>
             <Grid item className={classes.headerItem}>
-              <Typography variant="subtitle1">
-                {endDate ? format(endDate, 'MMMM DD, YYYY') : 'End Date'}
-              </Typography>
+              <Typography variant="subtitle1">{endDate ? format(endDate, "MMMM DD, YYYY") : "End Date"}</Typography>
             </Grid>
           </Grid>
 
@@ -129,11 +131,7 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
         </Grid>
         <div className={classes.divider} />
         <Grid container alignItems="center">
-          <DefinedRanges
-            selectedRange={dateRange}
-            ranges={ranges}
-            setRange={setDateRange}
-          />
+          <DefinedRanges selectedRange={dateRange} ranges={ranges} setRange={setDateRange} />
         </Grid>
       </Grid>
       <Grid container direction="row" justify="flex-end" wrap="nowrap" className={classes.footer}>

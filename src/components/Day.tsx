@@ -1,19 +1,13 @@
-/* eslint-disable jsx-a11y/mouse-events-have-key-events */
+import { IconButton, makeStyles,Typography } from "@material-ui/core";
+import * as React from "react";
 
-import * as React from 'react';
-import {
-  IconButton,
-  Typography,
-  makeStyles,
-} from '@material-ui/core';
-import { combine } from '../utils';
-import {theme} from '../theme';
-
+import { theme } from "../theme";
+import { combine } from "../utils";
 
 const useStyles = makeStyles(() => ({
   buttonContainer: {
-    display: 'flex',
-    border: `1px solid ${theme.color.alto}`
+    display: "flex",
+    border: `1px solid ${theme.color.alto}`,
   },
   button: {
     height: 40,
@@ -23,13 +17,13 @@ const useStyles = makeStyles(() => ({
   },
   buttonText: {
     lineHeight: 1.6,
-    fontFamily: theme.font.family.sans
+    fontFamily: theme.font.family.sans,
   },
   outlined: {
     border: `1px solid ${theme.color.burningOrange}`,
   },
   filled: {
-    '&:hover': {
+    "&:hover": {
       backgroundColor: theme.color.burningOrange,
       border: `1px solid ${theme.color.burningOrange}`,
     },
@@ -68,12 +62,7 @@ const Day: React.FunctionComponent<DayProps> = ({
   const classes = useStyles();
 
   return (
-    <div
-      className={combine(
-        classes.buttonContainer,
-        !disabled && highlighted && classes.highlighted,
-      )}
-    >
+    <div className={combine(classes.buttonContainer, !disabled && highlighted && classes.highlighted)}>
       <IconButton
         className={combine(
           classes.button,
@@ -85,11 +74,8 @@ const Day: React.FunctionComponent<DayProps> = ({
         onMouseOver={onHover}
       >
         <Typography
-          color={!disabled ? 'textPrimary' : 'textSecondary'}
-          className={combine(
-            classes.buttonText,
-            !disabled && filled && classes.contrast,
-          )}
+          color={!disabled ? "textPrimary" : "textSecondary"}
+          className={combine(classes.buttonText, !disabled && filled && classes.contrast)}
           variant="body2"
         >
           {value}

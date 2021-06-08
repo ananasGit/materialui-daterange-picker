@@ -1,33 +1,15 @@
-import * as React from 'react';
-import {
-  Paper,
-  Grid,
-  makeStyles,
-} from '@material-ui/core';
-import {
-  getDate,
-  isSameMonth,
-  isToday,
-  format,
-  isWithinRange,
-} from 'date-fns';
-import {
-  chunks,
-  getDaysInMonth,
-  isStartOfRange,
-  isEndOfRange,
-  inDateRange,
-  isRangeSameDay,
-} from '../utils';
-import Header from './Header';
-import Day from './Day';
+import { Grid, makeStyles,Paper } from "@material-ui/core";
+import { format, getDate, isSameMonth, isToday, isWithinRange } from "date-fns";
+import * as React from "react";
 
-
+import { theme } from "../theme";
 // eslint-disable-next-line no-unused-vars
-import { NavigationAction, DateRange } from '../types';
-import { theme } from '../theme';
+import { DateRange,NavigationAction } from "../types";
+import { chunks, getDaysInMonth, inDateRange, isEndOfRange, isRangeSameDay,isStartOfRange } from "../utils";
+import Day from "./Day";
+import Header from "./Header";
 
-const WEEK_DAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+const WEEK_DAYS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -67,16 +49,7 @@ interface MonthProps {
 const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
   const classes = useStyles();
 
-  const {
-    helpers,
-    handlers,
-    value: date,
-    dateRange,
-    marker,
-    setValue: setDate,
-    minDate,
-    maxDate,
-  } = props;
+  const { helpers, handlers, value: date, dateRange, marker, setValue: setDate, minDate, maxDate } = props;
 
   // eslint-disable-next-line react/destructuring-assignment
   const [back, forward] = props.navState;
@@ -93,32 +66,23 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
           onClickNext={() => handlers.onMonthNavigate(marker, NavigationAction.Next)}
         />
 
-        <Grid
-          item
-          container
-          direction="row"
-          justify="space-between"
-          className={classes.weekDaysContainer}
-        >
+        <Grid item container direction="row" justify="space-between" className={classes.weekDaysContainer}>
           {WEEK_DAYS.map((day) => (
-            <div key={day} style={{
-              fontSize: theme.font.size.small, 
-              fontWeight: theme.font.weight.semiBold, 
-              fontFamily: theme.font.family.sans,
-              color: theme.color.dune
-            }} >
+            <div
+              key={day}
+              style={{
+                fontSize: theme.font.size.small,
+                fontWeight: theme.font.weight.semiBold,
+                fontFamily: theme.font.family.sans,
+                color: theme.color.dune,
+              }}
+            >
               {day}
             </div>
           ))}
         </Grid>
 
-        <Grid
-          item
-          container
-          direction="column"
-          justify="space-between"
-          className={classes.daysContainer}
-        >
+        <Grid item container direction="column" justify="space-between" className={classes.daysContainer}>
           {chunks(getDaysInMonth(date), 7).map((week, idx) => (
             // eslint-disable-next-line react/no-array-index-key
             <Grid key={idx} container direction="row" justify="center">
@@ -130,14 +94,11 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
 
                 return (
                   <Day
-                    key={format(day, 'MM-DD-YYYY')}
+                    key={format(day, "MM-DD-YYYY")}
                     filled={isStart || isEnd}
                     outlined={isToday(day)}
                     highlighted={highlighted && !isRangeOneDay}
-                    disabled={
-                      !isSameMonth(date, day)
-                      || !isWithinRange(day, minDate, maxDate)
-                    }
+                    disabled={!isSameMonth(date, day) || !isWithinRange(day, minDate, maxDate)}
                     startOfRange={isStart && !isRangeOneDay}
                     endOfRange={isEnd && !isRangeOneDay}
                     onClick={() => handlers.onDayClick(day)}

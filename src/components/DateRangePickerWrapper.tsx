@@ -1,20 +1,17 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-
-import * as React from 'react';
-import classNames from 'classnames';
-import { makeStyles } from '@material-ui/core';
-
-import DateRangePicker from './DateRangePicker';
+import { makeStyles } from "@material-ui/core";
+import classNames from "classnames";
+import * as React from "react";
 
 // eslint-disable-next-line no-unused-vars
-import { DateRange, DefinedRange } from '../types';
+import { DateRange, DefinedRange } from "../types";
+import DateRangePicker from "./DateRangePicker";
 
 const useStyles = makeStyles(() => ({
   dateRangePickerContainer: {
-    position: 'relative',
+    position: "relative",
   },
   dateRangePicker: {
-    position: 'relative',
+    position: "relative",
     zIndex: 1,
   },
 }));
@@ -34,9 +31,7 @@ const DateRangePickerWrapper: React.FunctionComponent<DateRangePickerWrapperProp
 ) => {
   const classes = useStyles();
 
-  const {
-    wrapperClassName,
-  } = props;
+  const { wrapperClassName } = props;
 
   const wrapperClasses = classNames(classes.dateRangePicker, wrapperClassName);
 
