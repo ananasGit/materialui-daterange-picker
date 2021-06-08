@@ -1,4 +1,4 @@
-import { addMonths, addYears, isAfter, isBefore, isSameDay, isSameMonth, isWithinRange, max, min, setDate } from "date-fns";
+import { addMonths, addYears, isAfter, isBefore, isSameDay, isSameMonth, isWithinRange, max, min } from "date-fns";
 import * as React from "react";
 
 import { defaultRanges } from "../defaults";
