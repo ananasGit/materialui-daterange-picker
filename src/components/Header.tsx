@@ -16,6 +16,7 @@ import {
   setYear,
   getYear,
 } from 'date-fns';
+import { theme } from '../theme';
 
 const useStyles = makeStyles(() => ({
   iconContainer: {
@@ -27,6 +28,9 @@ const useStyles = makeStyles(() => ({
       background: 'none',
     },
   },
+  header: {
+    fontFamily: theme.font.family.sans
+  }
 }));
 
 interface HeaderProps {
@@ -93,10 +97,21 @@ const Header: React.FunctionComponent<HeaderProps> = ({
         <Select
           value={getMonth(date)}
           onChange={handleMonthChange}
-          MenuProps={{ disablePortal: true }}
+          MenuProps={{
+          anchorOrigin: {
+            vertical: "bottom",
+            horizontal: "left"
+          },
+          transformOrigin: {
+            vertical: "top",
+            horizontal: "left"
+          },
+          getContentAnchorEl: null
+        }}
+        className={classes.header}
         >
           {MONTHS.map((month, idx) => (
-            <MenuItem key={month} value={idx}>
+            <MenuItem key={month} value={idx} className={classes.header}>
               {month}
             </MenuItem>
           ))}
@@ -107,10 +122,21 @@ const Header: React.FunctionComponent<HeaderProps> = ({
         <Select
           value={getYear(date)}
           onChange={handleYearChange}
-          MenuProps={{ disablePortal: true }}
+          MenuProps={{
+          anchorOrigin: {
+            vertical: "bottom",
+            horizontal: "left"
+          },
+          transformOrigin: {
+            vertical: "top",
+            horizontal: "left"
+          },
+          getContentAnchorEl: null
+        }}
+        className={classes.header}
         >
           {generateYears(date, 30).map((year) => (
-            <MenuItem key={year} value={year}>
+            <MenuItem key={year} value={year} className={classes.header}>
               {year}
             </MenuItem>
           ))}

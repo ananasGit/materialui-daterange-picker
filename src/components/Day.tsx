@@ -23,6 +23,7 @@ const useStyles = makeStyles(() => ({
   },
   buttonText: {
     lineHeight: 1.6,
+    fontFamily: theme.font.family.sans
   },
   outlined: {
     border: `1px solid ${theme.color.burningOrange}`,

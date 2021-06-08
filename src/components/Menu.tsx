@@ -22,6 +22,8 @@ import {
   NavigationAction,
 } from '../types';
 import { MARKERS } from './DateRangePicker';
+import { theme as customTheme } from '../theme';
+import { combine } from '../utils';
 
 const useStyles = makeStyles((theme: Theme) => ({
   header: {
@@ -37,6 +39,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   footer: {
     padding: "12px"
+  },
+  font: {
+    fontFamily: customTheme.font.family.sans
   }
 }));
 
@@ -89,7 +94,7 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
       <Grid container direction="row" wrap="nowrap">
         <Grid>
 
-          <Grid container className={classes.header} alignItems="center">
+          <Grid container className={combine(classes.header, classes.font)} alignItems="center">
             <Grid item className={classes.headerItem}>
               <Typography variant="subtitle1">
                 {startDate ? format(startDate, 'MMMM DD, YYYY') : 'Start Date'}
