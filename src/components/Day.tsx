@@ -1,4 +1,4 @@
-import { IconButton, makeStyles,Typography } from "@material-ui/core";
+import { IconButton, makeStyles, Typography } from "@material-ui/core";
 import * as React from "react";
 
 import { theme } from "../theme";
@@ -8,6 +8,7 @@ const useStyles = makeStyles(() => ({
   buttonContainer: {
     display: "flex",
     border: `1px solid ${theme.color.alto}`,
+    outline: `1px solid ${theme.color.alto}`,
   },
   button: {
     height: 40,
@@ -18,9 +19,11 @@ const useStyles = makeStyles(() => ({
   buttonText: {
     lineHeight: 1.6,
     fontFamily: theme.font.family.sans,
+    fontSize: theme.font.size.xs,
   },
   outlined: {
-    border: `1px solid ${theme.color.burningOrange}`,
+    border: `1px solid ${theme.color.white}`,
+    outline: `1px solid ${theme.color.burningOrange}`,
   },
   filled: {
     "&:hover": {
@@ -29,12 +32,21 @@ const useStyles = makeStyles(() => ({
     },
     backgroundColor: theme.color.burningOrange,
     border: `1px solid ${theme.color.burningOrange}`,
+    outline: `1px solid ${theme.color.burningOrange}`,
   },
   highlighted: {
     backgroundColor: "#FFB999",
+    border: `1px solid "#FFB999"`,
   },
   contrast: {
     color: theme.color.white,
+  },
+  hidden: {
+    visibility: "hidden",
+  },
+  disabled: {
+    backgroundColor: theme.color.wildSand,
+    color: theme.color.gray,
   },
 }));
 
@@ -48,6 +60,7 @@ interface DayProps {
   onClick?: () => void;
   onHover?: () => void;
   value: number | string;
+  hidden?: boolean;
 }
 
 const Day: React.FunctionComponent<DayProps> = ({
@@ -58,11 +71,19 @@ const Day: React.FunctionComponent<DayProps> = ({
   onClick,
   onHover,
   value,
+  hidden,
 }: DayProps) => {
   const classes = useStyles();
 
   return (
-    <div className={combine(classes.buttonContainer, !disabled && highlighted && classes.highlighted)}>
+    <div
+      className={combine(
+        classes.buttonContainer,
+        !disabled && highlighted && classes.highlighted,
+        hidden && classes.hidden,
+        disabled && classes.disabled,
+      )}
+    >
       <IconButton
         className={combine(
           classes.button,

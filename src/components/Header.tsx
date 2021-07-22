@@ -1,14 +1,27 @@
-import { Grid, IconButton, makeStyles, MenuItem, Select } from "@material-ui/core";
+import { Grid, IconButton, makeStyles } from "@material-ui/core";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
-import { getMonth, getYear, setMonth, setYear } from "date-fns";
 import React from "react";
 
+import { useDateRangeContext } from "../context";
 import { theme } from "../theme";
+import { combine, parseOptionalDate } from "../utils";
 
 const useStyles = makeStyles(() => ({
   iconContainer: {
     padding: 5,
+  },
+  flexSpace: {
+    flexGrow: 1,
+  },
+  paddingLeft: {
+    paddingLeft: 12,
+  },
+  monthHeader: {
+    fontFamily: theme.font.family.sans,
+    fontWeight: theme.font.weight.bold,
+    fontSize: theme.font.size.slarge,
+    color: theme.color.dune,
   },
   icon: {
     padding: 10,
@@ -30,18 +43,8 @@ interface HeaderProps {
   onClickPrevious: () => void;
 }
 
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-
-const generateYears = (relativeTo: Date, count: number) => {
-  const half = Math.floor(count / 2);
-  return Array(count)
-    .fill(0)
-    .map((_y, i) => relativeTo.getFullYear() - half + i); // TODO: make part of the state
-};
-
 const Header: React.FunctionComponent<HeaderProps> = ({
   date,
-  setDate,
   nextDisabled,
   prevDisabled,
   onClickNext,
@@ -49,77 +52,29 @@ const Header: React.FunctionComponent<HeaderProps> = ({
 }: HeaderProps) => {
   const classes = useStyles();
 
-  const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setDate(setMonth(date, parseInt(event.target.value)));
-  };
-
-  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setDate(setYear(date, parseInt(event.target.value)));
-  };
+  const { getMonth, getYear } = useDateRangeContext();
 
   return (
     <Grid container justify="space-between" alignItems="center">
-      <Grid item className={classes.iconContainer}>
-        <IconButton className={classes.icon} disabled={prevDisabled} onClick={onClickPrevious}>
-          <ChevronLeft color={prevDisabled ? "disabled" : "action"} />
-        </IconButton>
-      </Grid>
-      <Grid item>
-        <Select
-          value={getMonth(date)}
-          onChange={handleMonthChange}
-          MenuProps={{
-            anchorOrigin: {
-              vertical: "bottom",
-              horizontal: "left",
-            },
-            transformOrigin: {
-              vertical: "top",
-              horizontal: "left",
-            },
-            getContentAnchorEl: null,
-          }}
-          className={classes.header}
-        >
-          {MONTHS.map((month, idx) => (
-            <MenuItem key={month} value={idx} className={classes.header}>
-              {month}
-            </MenuItem>
-          ))}
-        </Select>
+      {prevDisabled || (
+        <Grid item className={classes.iconContainer}>
+          <IconButton className={classes.icon} onClick={onClickPrevious}>
+            <ChevronLeft color={prevDisabled ? "disabled" : "action"} />
+          </IconButton>
+        </Grid>
+      )}
+
+      <Grid item className={combine(classes.flexSpace, prevDisabled ? classes.paddingLeft : "")}>
+        <span className={classes.monthHeader}>{`${getMonth(date)} ${getYear(date)}`}</span>
       </Grid>
 
-      <Grid item>
-        <Select
-          value={getYear(date)}
-          onChange={handleYearChange}
-          MenuProps={{
-            anchorOrigin: {
-              vertical: "bottom",
-              horizontal: "left",
-            },
-            transformOrigin: {
-              vertical: "top",
-              horizontal: "left",
-            },
-            getContentAnchorEl: null,
-          }}
-          className={classes.header}
-        >
-          {generateYears(date, 30).map((year) => (
-            <MenuItem key={year} value={year} className={classes.header}>
-              {year}
-            </MenuItem>
-          ))}
-        </Select>
-
-        {/* <Typography>{format(date, "MMMM YYYY")}</Typography> */}
-      </Grid>
-      <Grid item className={classes.iconContainer}>
-        <IconButton className={classes.icon} disabled={nextDisabled} onClick={onClickNext}>
-          <ChevronRight color={nextDisabled ? "disabled" : "action"} />
-        </IconButton>
-      </Grid>
+      {nextDisabled || (
+        <Grid item className={classes.iconContainer}>
+          <IconButton className={classes.icon} onClick={onClickNext}>
+            <ChevronRight color={nextDisabled ? "disabled" : "action"} />
+          </IconButton>
+        </Grid>
+      )}
     </Grid>
   );
 };

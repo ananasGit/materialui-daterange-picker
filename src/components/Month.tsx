@@ -1,15 +1,14 @@
-import { Grid, makeStyles,Paper } from "@material-ui/core";
+import { Grid, makeStyles, Paper } from "@material-ui/core";
 import { format, getDate, isSameMonth, isToday, isWithinRange } from "date-fns";
 import * as React from "react";
 
+import { useDateRangeContext } from "../context";
 import { theme } from "../theme";
 // eslint-disable-next-line no-unused-vars
-import { DateRange,NavigationAction } from "../types";
-import { chunks, getDaysInMonth, inDateRange, isEndOfRange, isRangeSameDay,isStartOfRange } from "../utils";
+import { DateRange, NavigationAction } from "../types";
+import { chunks, getDaysInMonth, inDateRange, isEndOfRange, isRangeSameDay, isStartOfRange } from "../utils";
 import Day from "./Day";
 import Header from "./Header";
-
-const WEEK_DAYS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -30,7 +29,6 @@ const useStyles = makeStyles(() => ({
 
 interface MonthProps {
   value: Date;
-  marker: symbol;
   dateRange: DateRange;
   minDate: Date;
   maxDate: Date;
@@ -42,14 +40,15 @@ interface MonthProps {
   handlers: {
     onDayClick: (day: Date) => void;
     onDayHover: (day: Date) => void;
-    onMonthNavigate: (marker: symbol, action: NavigationAction) => void;
+    onMonthNavigate: (action: NavigationAction) => void;
   };
 }
 
 const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
   const classes = useStyles();
+  const { weekDays: WEEK_DAYS } = useDateRangeContext();
 
-  const { helpers, handlers, value: date, dateRange, marker, setValue: setDate, minDate, maxDate } = props;
+  const { helpers, handlers, value: date, dateRange, setValue: setDate, minDate, maxDate } = props;
 
   // eslint-disable-next-line react/destructuring-assignment
   const [back, forward] = props.navState;
@@ -62,8 +61,8 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
           setDate={setDate}
           nextDisabled={!forward}
           prevDisabled={!back}
-          onClickPrevious={() => handlers.onMonthNavigate(marker, NavigationAction.Previous)}
-          onClickNext={() => handlers.onMonthNavigate(marker, NavigationAction.Next)}
+          onClickPrevious={() => handlers.onMonthNavigate(NavigationAction.Previous)}
+          onClickNext={() => handlers.onMonthNavigate(NavigationAction.Next)}
         />
 
         <Grid item container direction="row" justify="space-between" className={classes.weekDaysContainer}>
@@ -71,7 +70,7 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
             <div
               key={day}
               style={{
-                fontSize: theme.font.size.small,
+                fontSize: theme.font.size.xs,
                 fontWeight: theme.font.weight.semiBold,
                 fontFamily: theme.font.family.sans,
                 color: theme.color.dune,

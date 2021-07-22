@@ -3,19 +3,19 @@ import { Popover } from "@material-ui/core";
 import { Meta, Story } from "@storybook/react";
 import React, { useCallback, useRef, useState } from "react";
 
-import { DateRangePickerComponent } from "..";
+import { DateRangePicker } from "..";
 import { DateRangePickerProps } from "../components/DateRangePicker";
 import { DateRange } from "../types";
 
 export default {
   title: "DateRangePicker",
-  component: DateRangePickerComponent,
+  component: DateRangePicker,
 } as Meta;
 
 const Template: Story<DateRangePickerProps> = (args: DateRangePickerProps) => {
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <DateRangePickerComponent {...args} />
+      <DateRangePicker {...args} />
     </div>
   );
 };
@@ -25,17 +25,21 @@ const Template2: Story<DateRangePickerProps> = (args: DateRangePickerProps) => {
 
   const randomDate = (start: Date, end: Date): Date => {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-  }
+  };
 
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div onClick={() => {
-        setValue({
-          startDate: randomDate(new Date('1-1-2021'), new Date('6-31-2021')),
-          endDate: randomDate(new Date('7-1-2021'), new Date('12-31-2021'))
-        })
-      }}>Change date</div>
-      <DateRangePickerComponent
+      <div
+        onClick={() => {
+          setValue({
+            startDate: randomDate(new Date("1-1-2021"), new Date("6-31-2021")),
+            endDate: randomDate(new Date("7-1-2021"), new Date("12-31-2021")),
+          });
+        }}
+      >
+        Change date
+      </div>
+      <DateRangePicker
         {...args}
         value={value}
         onChange={setValue}
@@ -68,7 +72,7 @@ const Template3: Story<DateRangePickerProps> = (args: DateRangePickerProps) => {
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           transformOrigin={{ vertical: "top", horizontal: "right" }}
         >
-          <DateRangePickerComponent {...args} />
+          <DateRangePicker {...args} />
         </Popover>
       </div>
     </div>
@@ -80,3 +84,25 @@ export const Default = Template.bind({});
 export const Footer = Template2.bind({});
 
 export const Dropdown = Template3.bind({});
+
+export const Localization = Template.bind({});
+Localization.args = {
+  months: [
+    "Januar",
+    "Februar",
+    "Mart",
+    "April",
+    "Maj",
+    "Jun",
+    "Jul",
+    "Avgust",
+    "Septembar",
+    "Oktobar",
+    "Novembar",
+    "Decembar",
+  ],
+  actions: {
+    today: "Danas",
+  },
+  weekDays: ["Pon", "Ut", "Sr", "Cet", "Pet", "Sub", "Ned"],
+};
