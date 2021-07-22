@@ -13,6 +13,16 @@ export enum NavigationAction {
   Next = 1,
 }
 
+export type DefinedRanges = {
+  today?: string;
+  yesterday?: string;
+  thisWeek?: string;
+  lastWeek?: string;
+  last7Days?: string;
+  thisMonth?: string;
+  lastMonth?: string;
+};
+
 export type DefinedRange = {
   startDate: Date;
   endDate: Date;

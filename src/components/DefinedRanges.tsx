@@ -3,8 +3,7 @@ import { isSameDay } from "date-fns";
 import React from "react";
 
 import { theme } from "../theme";
-// eslint-disable-next-line no-unused-vars
-import { DateRange,DefinedRange } from "../types";
+import { DateRange, DefinedRange } from "../types";
 
 const useStyles = makeStyles(() => ({
   font: {
@@ -36,14 +35,14 @@ const DefinedRanges: React.FunctionComponent<DefinedRangesProps> = ({
   return (
     <List>
       {ranges.map((range, idx) => (
-        // eslint-disable-next-line react/no-array-index-key
         <ListItem button key={idx} onClick={() => setRange(range)}>
           <ListItemText
             className={classes.font}
             primaryTypographyProps={{
               variant: "body2",
               style: {
-                fontWeight: isSameRange(range, selectedRange) ? "bold" : "normal",
+                fontWeight: isSameRange(range, selectedRange) ? theme.font.weight.bold : theme.font.weight.regular,
+                color: isSameRange(range, selectedRange) ? theme.color.burningOrange : theme.color.dune,
               },
             }}
           >

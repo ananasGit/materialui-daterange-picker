@@ -2,8 +2,9 @@ import { makeStyles } from "@material-ui/core";
 import classNames from "classnames";
 import * as React from "react";
 
+import { useDateRangeContext } from "../context";
 // eslint-disable-next-line no-unused-vars
-import { DateRange, DefinedRange } from "../types";
+import { DateRange, DefinedRange, DefinedRanges } from "../types";
 import DateRangePicker from "./DateRangePicker";
 
 const useStyles = makeStyles(() => ({
@@ -24,6 +25,9 @@ export interface DateRangePickerWrapperProps {
   onChange: (dateRange: DateRange) => void;
   wrapperClassName?: string;
   footer?: React.ReactNode;
+  weekDays?: string[];
+  months?: string[];
+  actions?: DefinedRanges;
 }
 
 const DateRangePickerWrapper: React.FunctionComponent<DateRangePickerWrapperProps> = (
@@ -34,6 +38,12 @@ const DateRangePickerWrapper: React.FunctionComponent<DateRangePickerWrapperProp
   const { wrapperClassName } = props;
 
   const wrapperClasses = classNames(classes.dateRangePicker, wrapperClassName);
+
+  const { setActions, setDaysOfWeek, setMonths } = useDateRangeContext();
+
+  if (props.months) setMonths(props.months);
+  if (props.actions) setActions(props.actions);
+  if (props.weekDays) setDaysOfWeek(props.weekDays);
 
   return (
     <div className={classes.dateRangePickerContainer}>

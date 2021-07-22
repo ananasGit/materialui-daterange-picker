@@ -53,16 +53,29 @@ interface DefinedRange {
   startDate: Date;
   endDate: Date;
 }
+
+type DefinedRanges = {
+  today?: string;
+  yesterday?: string;
+  thisWeek?: string;
+  lastWeek?: string;
+  last7Days?: string;
+  thisMonth?: string;
+  lastMonth?: string;
+};
 ```
 
 ## Props
 
-| Name               | Type                  | Required   | Default value     | Description                                        |
-| :----------------- | :-------------------- | :--------- | :---------------- | :------------------------------------------------- |
-| `onChange`         | `(DateRange) => void` | _required_ | -                 | handler function for providing selected date range |
-| `value`            | `DateRange`           | _required_ | `{}`              | current selected date range                        |
-| `minDate`          | `Date` or `string`    | _optional_ | 10 years ago      | min date allowed in range                          |
-| `maxDate`          | `Date` or `string`    | _optional_ | 10 years from now | max date allowed in range                          |
-| `definedRanges`    | `DefinedRange[]`      | _optional_ | -                 | custom defined ranges to show in the list          |
-| `wrapperClassName` | `object`              | _optional_ | `undefined`       | defines additional wrapper style classes           |
-| `footer`           | `ReactNode`           | _optional_ | `undefined`       | custom footer component                            |
+| Name               | Type                  | Required   | Default value     | Description                                                     |
+| :----------------- | :-------------------- | :--------- | :---------------- | :-------------------------------------------------------------- |
+| `onChange`         | `(DateRange) => void` | _required_ | -                 | handler function for providing selected date range              |
+| `value`            | `DateRange`           | _required_ | `{}`              | current selected date range                                     |
+| `minDate`          | `Date` or `string`    | _optional_ | 10 years ago      | min date allowed in range                                       |
+| `maxDate`          | `Date` or `string`    | _optional_ | 10 years from now | max date allowed in range                                       |
+| `definedRanges`    | `DefinedRange[]`      | _optional_ | -                 | custom defined ranges to show in the list                       |
+| `wrapperClassName` | `object`              | _optional_ | `undefined`       | defines additional wrapper style classes                        |
+| `footer`           | `ReactNode`           | _optional_ | `undefined`       | custom footer component                                         |
+| `months`           | `string[]`            | _optional_ | `undefined`       | translations for months                                         |
+| `weekDays`         | `string[]`            | _optional_ | `undefined`       | translations for week days                                      |
+| `actions`          | `DefinedRanges`       | _optional_ | `undefined`       | translations for actins, and enabling/disabling default actions |

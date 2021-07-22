@@ -1,18 +1,12 @@
 import { addMonths, addYears, isAfter, isBefore, isSameDay, isSameMonth, isWithinRange, max, min } from "date-fns";
 import * as React from "react";
 
-import { defaultRanges } from "../defaults";
+import { useDateRangeContext } from "../context";
+import { useDefinedRanges } from "../defaults";
 // eslint-disable-next-line no-unused-vars
-import { DateRange, DefinedRange,NavigationAction } from "../types";
+import { DateRange, DefinedRange, NavigationAction } from "../types";
 import { getValidatedMonths, parseOptionalDate } from "../utils";
 import Menu from "./Menu";
-
-type Marker = symbol;
-
-export const MARKERS: { [key: string]: Marker } = {
-  FIRST_MONTH: Symbol("firstMonth"),
-  SECOND_MONTH: Symbol("secondMonth"),
-};
 
 export interface DateRangePickerProps {
   value?: DateRange;
@@ -26,7 +20,10 @@ export interface DateRangePickerProps {
 const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (props: DateRangePickerProps) => {
   const today = new Date();
 
-  const { onChange, value, minDate, maxDate, definedRanges = defaultRanges, footer } = props;
+  const { onChange, value, minDate, maxDate, definedRanges: df, footer } = props;
+
+  const defaultDefinedRanges = useDefinedRanges();
+  const definedRanges = df ?? defaultDefinedRanges;
 
   const minDateValid = parseOptionalDate(minDate, addYears(today, -10));
   const maxDateValid = parseOptionalDate(maxDate, addYears(today, 10));
@@ -45,7 +42,7 @@ const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (props: D
     const [intialFirstMonth, initialSecondMonth] = getValidatedMonths(value || {}, minDateValid, maxDateValid);
     setFirstMonth(intialFirstMonth || today);
     setSecondMonth(initialSecondMonth || addMonths(firstMonth, 1));
-  }, [value])
+  }, [value]);
 
   // handlers
   const setFirstMonthValidated = (date: Date) => {
@@ -94,14 +91,11 @@ const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (props: D
     setHoverDay(day);
   };
 
-  const onMonthNavigate = (marker: Marker, action: NavigationAction) => {
-    if (marker === MARKERS.FIRST_MONTH) {
-      const firstNew = addMonths(firstMonth, action);
-      if (isBefore(firstNew, secondMonth)) setFirstMonth(firstNew);
-    } else {
-      const secondNew = addMonths(secondMonth, action);
-      if (isBefore(firstMonth, secondNew)) setSecondMonth(secondNew);
-    }
+  const onMonthNavigate = (action: NavigationAction) => {
+    const firstNew = addMonths(firstMonth, action);
+    const secondNew = addMonths(secondMonth, action);
+    if (isBefore(firstNew, secondNew)) setFirstMonth(firstNew);
+    if (isBefore(firstNew, secondNew)) setSecondMonth(secondNew);
   };
 
   const onDayHover = (date: Date) => {
@@ -114,11 +108,7 @@ const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (props: D
 
   // helpers
   const inHoverRange = (day: Date) =>
-    (startDate &&
-      !endDate &&
-      hoverDay &&
-      isAfter(hoverDay, startDate) &&
-      isWithinRange(day, startDate, hoverDay));
+    startDate && !endDate && hoverDay && isAfter(hoverDay, startDate) && isWithinRange(day, startDate, hoverDay);
 
   const helpers = {
     inHoverRange,
