@@ -45,7 +45,6 @@ interface HeaderProps {
 
 const Header: React.FunctionComponent<HeaderProps> = ({
   date,
-  // setDate,
   nextDisabled,
   prevDisabled,
   onClickNext,
@@ -53,30 +52,25 @@ const Header: React.FunctionComponent<HeaderProps> = ({
 }: HeaderProps) => {
   const classes = useStyles();
 
-  const { months: MONTHS } = useDateRangeContext();
-
-  const getMonth = () => MONTHS[parseOptionalDate(date, date).getMonth()];
-  const getYear = () => parseOptionalDate(date, date).getFullYear();
+  const { getMonth, getYear } = useDateRangeContext();
 
   return (
     <Grid container justify="space-between" alignItems="center">
       {prevDisabled || (
         <Grid item className={classes.iconContainer}>
-          <IconButton className={classes.icon} disabled={prevDisabled} onClick={onClickPrevious}>
+          <IconButton className={classes.icon} onClick={onClickPrevious}>
             <ChevronLeft color={prevDisabled ? "disabled" : "action"} />
           </IconButton>
         </Grid>
       )}
 
       <Grid item className={combine(classes.flexSpace, prevDisabled ? classes.paddingLeft : "")}>
-        <span className={classes.monthHeader}>{getMonth()}</span>
-        <span> </span>
-        <span className={classes.monthHeader}>{getYear()}</span>
+        <span className={classes.monthHeader}>{`${getMonth(date)} ${getYear(date)}`}</span>
       </Grid>
 
       {nextDisabled || (
         <Grid item className={classes.iconContainer}>
-          <IconButton className={classes.icon} disabled={nextDisabled} onClick={onClickNext}>
+          <IconButton className={classes.icon} onClick={onClickNext}>
             <ChevronRight color={nextDisabled ? "disabled" : "action"} />
           </IconButton>
         </Grid>

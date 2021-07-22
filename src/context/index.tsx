@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { DATE_RANGE_ACTIONS, MONTHS, WEEK_DAYS } from "../consts";
 import { DefinedRanges } from "../types";
+import { parseOptionalDate } from "../utils";
 
 interface DateRangePickerState {
   months: string[];
@@ -10,6 +11,8 @@ interface DateRangePickerState {
   setActions: React.Dispatch<React.SetStateAction<DefinedRanges>>;
   setDaysOfWeek: React.Dispatch<React.SetStateAction<string[]>>;
   setMonths: React.Dispatch<React.SetStateAction<string[]>>;
+  getMonth: (date: Date) => string;
+  getYear: (date: Date) => number;
 }
 
 const DateRangePickerContext = React.createContext<DateRangePickerState>(undefined);
@@ -19,8 +22,13 @@ export const DateRangePickerProvider = ({ children }: { children: React.ReactNod
   const [weekDays, setDaysOfWeek] = React.useState(WEEK_DAYS);
   const [months, setMonths] = React.useState(MONTHS);
 
+  const getMonth = React.useCallback((date: Date) => months[parseOptionalDate(date, date).getMonth()], [months]);
+  const getYear = React.useCallback((date: Date) => parseOptionalDate(date, date).getFullYear(), []);
+
   return (
-    <DateRangePickerContext.Provider value={{ actions, weekDays, months, setActions, setDaysOfWeek, setMonths }}>
+    <DateRangePickerContext.Provider
+      value={{ actions, weekDays, months, setActions, setDaysOfWeek, setMonths, getMonth, getYear }}
+    >
       {children}
     </DateRangePickerContext.Provider>
   );
