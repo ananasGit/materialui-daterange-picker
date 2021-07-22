@@ -18,9 +18,9 @@ interface DateRangePickerState {
 const DateRangePickerContext = React.createContext<DateRangePickerState>(undefined);
 
 export const DateRangePickerProvider = ({ children }: { children: React.ReactNode }) => {
-  const [actions, setActions] = React.useState(DATE_RANGE_ACTIONS);
-  const [weekDays, setDaysOfWeek] = React.useState(WEEK_DAYS);
-  const [months, setMonths] = React.useState(MONTHS);
+  const [actions, setActions] = React.useState<DefinedRanges>({ ...DATE_RANGE_ACTIONS });
+  const [weekDays, setDaysOfWeek] = React.useState<string[]>([...WEEK_DAYS]);
+  const [months, setMonths] = React.useState<string[]>([...MONTHS]);
 
   const getMonth = React.useCallback((date: Date) => months[parseOptionalDate(date, date).getMonth()], [months]);
   const getYear = React.useCallback((date: Date) => parseOptionalDate(date, date).getFullYear(), []);

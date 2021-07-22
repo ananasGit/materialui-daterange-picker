@@ -5,7 +5,7 @@ import React from "react";
 
 import { useDateRangeContext } from "../context";
 import { theme } from "../theme";
-import { combine, parseOptionalDate } from "../utils";
+import { combine } from "../utils";
 
 const useStyles = makeStyles(() => ({
   iconContainer: {

@@ -1,7 +1,6 @@
 import { addMonths, addYears, isAfter, isBefore, isSameDay, isSameMonth, isWithinRange, max, min } from "date-fns";
 import * as React from "react";
 
-import { useDateRangeContext } from "../context";
 import { useDefinedRanges } from "../defaults";
 // eslint-disable-next-line no-unused-vars
 import { DateRange, DefinedRange, NavigationAction } from "../types";
